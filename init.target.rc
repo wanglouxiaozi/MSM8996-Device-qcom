@@ -79,7 +79,27 @@ on post-fs-data
     mkdir /data/misc/qvr 0770 system system
     mkdir /data/misc/audio_pp 0771 media audio
 
-	
+	#Turn on SOM_SYS_PWR power, SOM_SYS_PWR is the main power supply of the system
+    write /sys/class/gpio/export 119
+    write /sys/class/gpio/gpio119/direction out
+    #chown system system /sys/class/gpio/gpio119/value
+    #chmod 0666 /sys/class/gpio/gpio119/value
+    write /sys/class/gpio/gpio119/value 1
+  
+    #Turn on V3V3_SYS power, V3V3_SYS power is the Peripheral main power supply of the system.
+    write /sys/class/gpio/export 137
+    write /sys/class/gpio/gpio137/direction out
+    #chown system system /sys/class/gpio/gpio137/value
+    #chmod 0666 /sys/class/gpio/gpio137/value
+    write /sys/class/gpio/gpio137/value 1
+      
+    #Turn on the VCC5S power supply, and the VCC5S power supply is the main power supply of the system.
+    write /sys/class/gpio/export 117
+    write /sys/class/gpio/gpio117/direction out
+    #chown system system /sys/class/gpio/gpio117/value
+    #chmod 0666 /sys/class/gpio/gpio117/value
+    write /sys/class/gpio/gpio117/value 1
+
 on property:init.svc.bootanim=running
     write /sys/class/leds/wled/brightness 4095
 
